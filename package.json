@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-react-loader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "src/ndex.js",
   "scripts": {
