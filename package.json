@@ -1,0 +1,20 @@
+{
+  "name": "markdown-it-react",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/ndex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publishpatch": "git add --all; git commit -m 'c'; npm version patch; git push origin master:master; npm publish --registry='https://registry.npmjs.org';cnpm sync react-gm;npm version;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liyatang/markdown-it-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liyatang/markdown-it-react/issues"
+  },
+  "homepage": "https://github.com/liyatang/markdown-it-react#readme"
+}
