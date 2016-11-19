@@ -1,5 +1,5 @@
 {
-  "name": "markdown-it-react",
+  "name": "markdown-it-react-loader",
   "version": "0.0.2",
   "description": "",
   "main": "src/ndex.js",
@@ -9,12 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liyatang/markdown-it-react.git"
+    "url": "git+https://github.com/liyatang/markdown-it-react-loader.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/liyatang/markdown-it-react/issues"
+    "url": "https://github.com/liyatang/markdown-it-react-loader/issues"
   },
-  "homepage": "https://github.com/liyatang/markdown-it-react#readme"
+  "homepage": "https://github.com/liyatang/markdown-it-react-loader#readme",
+  "dependencies": {
+    "front-matter": "^2.1.1",
+    "markdown-it": "^8.1.0",
+    "markdown-it-container": "^2.0.0"
+  }
 }
