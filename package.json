@@ -2,7 +2,7 @@
   "name": "markdown-it-react-loader",
   "version": "0.0.3",
   "description": "",
-  "main": "src/ndex.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "publishpatch": "git add --all; git commit -m 'c'; npm version patch; git push origin master:master; npm publish --registry='https://registry.npmjs.org';cnpm sync markdown-it-react-loader;npm version;"
