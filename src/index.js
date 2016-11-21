@@ -61,6 +61,16 @@ const formatModule = (imports, js, jsx) => {
     ${js}
     
     class MarkdownItReactComponent extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {};
+        }
+        handleToggleCode(flag){
+            const state = {};
+            state['showCode' + flag] = !this.state['showCode' + flag];
+            this.setState(state);
+        }
+        
         render(){
             return (
                 <div>
@@ -75,9 +85,9 @@ const formatModule = (imports, js, jsx) => {
     return moduleText;
 };
 
-const formatOpening = (code, description) => {
+const formatOpening = (code, description, flag) => {
     return (
-        `<div className="demo-box">
+        `<div className={"demo-box " + (this.state['showCode' + ${flag}] ? "code-active" : "")}>
     <div className="demo-instance">
         <h4>Example</h4>
         ${code}
@@ -87,9 +97,12 @@ const formatOpening = (code, description) => {
         <div className="demo-code">`);
 };
 
-const formatClosing = () => {
+const formatClosing = (flag) => {
     return (
         `</div>
+        <div className="demo-code-btn" onClick={this.handleToggleCode.bind(this, ${flag})}>
+            <i/>
+        </div>
     </div>
 </div>`);
 };
@@ -100,7 +113,10 @@ module.exports = function (source) {
     const {body, attributes: {imports: importMap}} = frontMatter(source);
     const imports = 'import React from \'react\'; ' + importMap;
 
-    let moduleJS = '';
+    let moduleJS = [];
+
+    // 放在这里应该没有问题， 反正是顺序执行的
+    let flag = '';
 
     md.use(mdContainer, 'demo', {
         validate: function (params) {
@@ -114,6 +130,8 @@ module.exports = function (source) {
 
             // 有此标记代表 ::: 开始
             if (tokens[idx].nesting === 1) {
+                flag = idx;
+
                 let jsx = '', i = 1;
 
                 // 从 ::: 下一个token开始
@@ -125,7 +143,7 @@ module.exports = function (source) {
                     if (token.markup === '```') {
                         if (token.info === 'js') {
                             // 插入到import后，component前
-                            moduleJS = token.content;
+                            moduleJS.push(token.content);
                         } else if (token.info === 'jsx') {
                             // 插入render内
                             jsx = token.content;
@@ -136,14 +154,14 @@ module.exports = function (source) {
                 }
 
                 // 描述也执行md
-                return formatOpening(jsx, md.render(m[1]));
+                return formatOpening(jsx, md.render(m[1]), flag);
             }
-            return formatClosing();
+            return formatClosing(flag);
         }
     });
 
     // md 处理过后的字符串含有 class 和 style ，需要再次处理给到react
     const content = md.render(body).replace(/class=/g, 'className=').replace(/<hr>/g, '<hr />').replace(/<br>/g, '<br />');
 
-    return formatModule(imports, moduleJS, content);
+    return formatModule(imports, moduleJS.join('\n'), content);
 };
