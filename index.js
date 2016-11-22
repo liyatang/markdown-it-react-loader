@@ -1,54 +1,47 @@
 const mdContainer = require('markdown-it-container');
-const RegexPlugin = require('markdown-it-regexp');
+const anchor = require('markdown-it-anchor');
 const frontMatter = require('front-matter');
-var highlight = require('highlight.js');
+const highlight = require('highlight.js');
+
 let md = require('markdown-it');
 
-md = md('commonmark').use(
-    // TODO copy
-    // Plugin to pass through assignment expressions without escaping
-    RegexPlugin(/{({\s*(?:<.*?>|.*?)\s*})}/, (match) => match[1])
-).set({
-    // TODO copy
+let options = {
+    className: 'doc'
+};
+
+md = md('commonmark').enable([
+    'smartquotes'
+]).use(anchor, {
+    permalink: true,
+    permalinkBefore: true
+}).set({
     highlight(content, languageHint){
-        // const preprocessed_content = {};
         let highlightedContent;
 
         highlight.configure({
             useBR: true,
-            tabReplace: '  '
+            tabReplace: '    '
         });
 
-        // Hold onto JSX assignment expressions before passing to highlighter
-        // content = content.replace(/{({\s*(?:<.*?>|.*?)\s*})}/g, (match, value) => {
-        //     const key = hash('sha256').update(value, 'utf-8').digest('hex');
-        //     preprocessed_content[key] = value;
-        //     return key;
-        // });
-
-        // Try highlighting with a given hint
         if (languageHint && highlight.getLanguage(languageHint)) {
             try {
                 highlightedContent = highlight.highlight(languageHint, content).value;
             } catch (err) {
-            } // eslint-disable-line no-empty
+            }
         }
 
-        // Highlight without a hint
         if (!highlightedContent) {
             try {
                 highlightedContent = highlight.highlightAuto(content).value;
             } catch (err) {
-            } // eslint-disable-line no-empty
+            }
         }
 
-        // Quote curly braces
+        // 把代码中的{}转
         highlightedContent = highlightedContent.replace(/[\{\}]/g, (match) => `{'${match}'}`);
 
-        // Put back the JSX assignment expressions we pulled out before returning
-        // Object.keys(preprocessed_content).forEach((key) =>
-        //     highlightedContent = highlightedContent.replace(key, preprocessed_content[key])
-        // );
+        // 加上 hljs
+        highlightedContent = highlightedContent.replace('<code class="', '<code class="hljs ').replace('<code>', '<code class="hljs">')
 
         return highlight.fixMarkup(highlightedContent);
     }
@@ -73,7 +66,7 @@ const formatModule = (imports, js, jsx) => {
         
         render(){
             return (
-                <div>
+                <div className="${options.className}">
                     ${jsx}
                 </div>
             );
@@ -87,28 +80,33 @@ const formatModule = (imports, js, jsx) => {
 
 const formatOpening = (code, description, flag) => {
     return (
-        `<div className={"demo-box " + (this.state['showCode' + ${flag}] ? "code-active" : "")}>
-    <div className="demo-instance">
+        `<div className={"${options.className}-demo-box " + (this.state['showCode' + ${flag}] ? "${options.className}-demo-code-active" : "")}>
+    <div className="${options.className}-demo-instance">
         <h4>Example</h4>
         ${code}
     </div>
-    <div className="demo-meta">
-        <div className="demo-description">${description}</div>
-        <div className="demo-code">`);
+    <div className="${options.className}-demo-meta">
+        <div className="${options.className}-demo-description">${description}</div>
+        <div className="${options.className}-demo-code">`);
 };
 
 const formatClosing = (flag) => {
     return (
         `</div>
-        <div className="demo-code-btn" onClick={this.handleToggleCode.bind(this, ${flag})}>
+        <div className="${options.className}-demo-code-btn" onClick={this.handleToggleCode.bind(this, ${flag})}>
             <i/>
         </div>
     </div>
 </div>`);
 };
 
+
+
 module.exports = function (source) {
     this.cacheable();
+
+    // init options
+    Object.assign(options, this.options.markdownItReact ? this.options.markdownItReact() : {});
 
     const {body, attributes: {imports: importMap}} = frontMatter(source);
     const imports = 'import React from \'react\'; ' + importMap;
@@ -161,7 +159,10 @@ module.exports = function (source) {
     });
 
     // md 处理过后的字符串含有 class 和 style ，需要再次处理给到react
-    const content = md.render(body).replace(/class=/g, 'className=').replace(/<hr>/g, '<hr />').replace(/<br>/g, '<br />');
+    let content = md.render(body)
+        .replace(/<hr>/g, '<hr />')
+        .replace(/<br>/g, '<br />')
+        .replace(/class=/g, 'className=');
 
     return formatModule(imports, moduleJS.join('\n'), content);
 };

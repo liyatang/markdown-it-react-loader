@@ -1,0 +1,96 @@
+.doc {
+
+}
+
+.doc h1:hover .header-anchor,
+.doc h2:hover .header-anchor,
+.doc h3:hover .header-anchor,
+.doc h4:hover .header-anchor,
+.doc h5:hover .header-anchor,
+.doc h6:hover .header-anchor{
+    visibility: visible;
+}
+
+.doc .header-anchor{
+    visibility: hidden;
+    font-size: 14px;
+    color: inherit;
+    float: left;
+    padding-right: 4px;
+    margin-left: -14px;
+}
+
+.doc-demo-box {
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.doc-demo-box:hover {
+    box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+    z-index: 10;
+}
+
+.doc-demo-instance {
+    padding: 10px;
+}
+
+.doc-demo-instance h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.doc-demo-meta {
+}
+
+.doc-demo-description {
+    border-top: 1px solid #eee;
+    padding: 10px;
+}
+
+.doc-demo-description p {
+    margin: 0;
+}
+
+.doc-demo-code {
+    display: none;
+    border-top: 1px dashed #eee;
+    padding: 10px;
+}
+
+.doc-demo-code pre {
+    background: white;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.doc-demo-code-btn {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+}
+
+.doc-demo-code-btn i {
+    margin: auto;
+    display: block;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 8px solid #eee;
+    border-right: 8px solid transparent;
+    margin-bottom: -8px;
+    width: 0;
+    height: 0;
+}
+
+.doc-demo-box.doc-demo-code-active .doc-demo-code {
+    display: block;
+}
+
+.doc-demo-box.code-active .doc-demo-code-btn i {
+    border-top: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 8px solid #eee;
+    border-right: 8px solid transparent;
+    margin-top: -8px;
+    margin-bottom: 0;
+}
