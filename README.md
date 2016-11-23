@@ -186,4 +186,15 @@ userAgent是：`{navigator.userAgent}`
 - [element](https://github.com/ElemeFE/element)
 - [react-markdown-loader](https://github.com/javiercf/react-markdown-loader)
 
+## 其他
 
+### anchor
+
+github page是不支持browserHistory的，一般路由用hash处理。而锚点也是用hash，会冲突。
+所以只能自己处理。 监听锚的点击，阻止默认事件，然后用你自己的规则处理吧。
+
+我是这样做的 https://github.com/gmfe/react-gm/blob/master/demo/index.js
+
+### react模块
+
+默认已经`import React from 'react';`

@@ -2,6 +2,7 @@ const mdContainer = require('markdown-it-container');
 const anchor = require('markdown-it-anchor');
 const frontMatter = require('front-matter');
 const highlight = require('highlight.js');
+const slugify = require('transliteration').slugify;
 
 let md = require('markdown-it');
 
@@ -12,6 +13,7 @@ let options = {
 md = md('commonmark').enable([
     'smartquotes'
 ]).use(anchor, {
+    slugify: slugify,
     permalink: true,
     permalinkBefore: true
 }).set({
