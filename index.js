@@ -81,6 +81,9 @@ const formatModule = (imports, js, jsx) => {
 };
 
 const formatOpening = (code, description, flag) => {
+
+    const desc = description ? `<div className="${options.className}-demo-description">${description}</div>` : '';
+
     return (
         `<div className={"${options.className}-demo-box " + (this.state['showCode' + ${flag}] ? "${options.className}-demo-code-active" : "")}>
     <div className="${options.className}-demo-instance">
@@ -88,7 +91,7 @@ const formatOpening = (code, description, flag) => {
         ${code}
     </div>
     <div className="${options.className}-demo-meta">
-        <div className="${options.className}-demo-description">${description}</div>
+        ${desc}
         <div className="${options.className}-demo-code">`);
 };
 
@@ -120,13 +123,13 @@ module.exports = function (source) {
 
     md.use(mdContainer, 'demo', {
         validate: function (params) {
-            return params.trim().match(/^demo\s+(.*)$/);
+            return params.trim().match(/^demo\s*(.*)$/);
         },
         render: function (tokens, idx) {
             // container 从开头到结尾把之间的token跑一遍，其中idx定位到具体的位置
 
             // 获取描述
-            const m = tokens[idx].info.trim().match(/^demo\s+(.*)$/);
+            const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
 
             // 有此标记代表 ::: 开始
             if (tokens[idx].nesting === 1) {
