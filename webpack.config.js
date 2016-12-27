@@ -5,13 +5,13 @@ module.exports = {
     devtool: 'eval',
     entry: {
         'index': [
-            './demo/index'
+            './docs/index'
         ]
     },
     output: {
-        path: path.join(__dirname, 'build'),
+        path: path.join(__dirname, 'docs/build'),
         filename: '[name].bundle.js',
-        publicPath: '/markdown-it-react-loader/build/'
+        publicPath: '/markdown-it-react-loader/docs/build/'
     },
     resolve: {
         alias: {

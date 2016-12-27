@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development webpack-dev-server --config webpack.config.js --host 0.0.0.0 --inline --hot --progress --colors --port 5000",
     "publishpatch": "git add --all; git commit -m 'c'; npm version patch; git push origin master:master; npm publish --registry='https://registry.npmjs.org';cnpm sync markdown-it-react-loader;npm version;",
-    "gh-pages": "git branch -D gh-pages; git checkout -b gh-pages; webpack --config webpack.config.js; rm -rf .gitignore; git add --all; git commit -m 'page'; git push origin :gh-pages; git push origin HEAD:gh-pages; git checkout master;"
+    "gh-pages": "webpack --config webpack.config.js; git add --all; git commit -m 'gh-pages';git push origin master:master;"
   },
   "repository": {
     "type": "git",
