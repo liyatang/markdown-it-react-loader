@@ -67,7 +67,7 @@ module.export = {
 
 #### 纯渲染
 
-::: demo 这是描述这是**描述**，点三角可展开代码
+::: demo 这是描述这是**描述**，点三角可展开代码。也可以不提供
 ```jsx
 <button onClick={() => alert('dou la mi fa sou')}>click me</button>
 ```
