@@ -34,7 +34,7 @@
     padding: 10px;
 }
 
-.doc-demo-instance h4 {
+.doc-demo-instance>h4 {
     margin: 0 0 10px;
     font-size: 14px;
 }
@@ -47,7 +47,7 @@
     padding: 10px;
 }
 
-.doc-demo-description p {
+.doc-demo-description>p {
     margin: 0;
 }
 
@@ -57,7 +57,7 @@
     padding: 10px;
 }
 
-.doc-demo-code pre {
+.doc-demo-code>pre {
     background: white;
     margin: 0;
     padding: 0;
