@@ -1,7 +1,8 @@
 ---
 imports:
-    import {Loading} from 'react-gm';
+    import moment from 'moment';
 ---
+
 # markdown-it-react-loader
 
 用Markdown提供一份直观的React文档，有可运行的示例，有示例源代码，有示例的说明。
@@ -33,25 +34,7 @@ imports:
 import ReadMe from '../README.md';
 ```
 
-如需运行demo `npm install; npm start;` 打开 http://localhost:5000
-
-### options
-
-- `className` 默认'doc'，页面容器的class
-
-```js
-// webpack.config.js
-module.export = {
-    //...省略
-    markdownItReact: function () {
-        return {
-            className: 'doc' // 默认也是doc
-        };
-    }
-};
-```
-
-具体见`webpack.config.js`
+如需运行demo `npm install; npm start;` 打开 http://localhost:8080
 
 ### 样式
 
@@ -85,9 +68,9 @@ module.export = {
 
 #### 引入其他库
 
-::: demo [react-gm](https://github.com/gmfe/react-gm)的Loading组件
+::: demo
 ```jsx
-<Loading/>
+<div>adfaf{moment().format('YYYY-MM-DD')}</div>
 ```
 :::
 
@@ -96,15 +79,16 @@ module.export = {
 ```js
 ---
 imports:
-    import {Loading} from 'react-gm';
+    import moment from 'moment';
 ---
 ```
 
 然后
+
 ```
-    ::: demo [react-gm](https://github.com/gmfe/react-gm)的日历组件
+    ::: demo moment
     ```jsx
-    <Loading/>
+    <div>adfaf{moment().format('YYYY-MM-DD')}</div>
     ```
     :::
 ```

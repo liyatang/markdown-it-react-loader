@@ -1,37 +1,20 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
 
 module.exports = {
-    devtool: 'eval',
-    entry: {
-        'index': [
-            './docs/index'
-        ]
-    },
-    output: {
-        path: path.join(__dirname, 'docs/build'),
-        filename: '[name].bundle.js',
-        publicPath: '/markdown-it-react-loader/docs/build/'
-    },
-    resolve: {
-        alias: {
-            'react-gm': 'react-gm/dist/react-gm.js'
-        }
-    },
-    module: {
-        loaders: [{
-            test: /\.js$/,
-            loader: 'babel',
-            exclude: /dict-zi\.js/
-        }, {
-            test: /\.md$/,
-            loader: 'babel!../index.js'
-        }],
-        noParse: ['react-gm/dist/react-gm.js']
-    },
-    markdownItReact: function () {
-        return {
-            className: 'doc' // 默认也是doc
-        };
-    }
-};
+  mode: process.env.NODE_ENV,
+  entry: './docs/index.js',
+  output: {
+    path: path.join(__dirname, 'docs/build'),
+    filename: '[name].bundle.js',
+    publicPath: '/markdown-it-react-loader/docs/build/'
+  },
+  module: {
+    rules: [{
+      test: /\.js$/,
+      loader: 'babel-loader'
+    }, {
+      test: /\.md$/,
+      loader: 'babel-loader!./index.js'
+    }]
+  }
+}
